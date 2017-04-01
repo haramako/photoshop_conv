@@ -115,8 +115,8 @@ function withOpen(path, func){
 }
 
 function hoge(){
-	withOpen("C:\\Work\\photoshop_conv\\thb.psd", function(doc){
-		convert(doc, "C:\\Work\\photoshop_conv\\thb_*.png" );
+	withOpen(param.file, function(doc){
+		convert(doc, param.out);
 	});
 	return true;
 }

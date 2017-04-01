@@ -91,8 +91,10 @@ var fs = require('fs');
 	}
 
 	function conv(){
-		return exec('to_png.js', function (){
-			return hoge();
+		log(path.resolve('.','test.psd'));
+		return exec('to_png.js', 'hoge()', {
+			file: path.resolve('.','test.psd'),
+			out: path.resolve('.', 'test_*.png')
 		}).then( function(res){
 			log(res);
 		}, function(err){
