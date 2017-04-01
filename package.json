@@ -1,0 +1,16 @@
+{
+  "name": "photoshop_conv",
+  "version": "0.0.1",
+  "generator-core-version": ">=1.0.0",
+  "description": "photoshop converter for toydea",
+  "main": "main.js",
+  "scripts": {
+    "start": "node node_modules/generator-core/app.js -f . -v || exit 1",
+    "test": "node node_modules/generator-core/app.js -f . -v || exit 1"
+  },
+  "dependencies": {
+      "generator-core": "3.8.3"
+  },
+  "author": "",
+  "license": "MIT"
+}
