@@ -1,4 +1,4 @@
-//é…åˆ—å†…ã«objãŒã‚ã‚‹ã‹ã‚’ãƒã‚§ãƒƒã‚¯
+//”z—ñ“à‚Éobj‚ª‚ ‚é‚©‚ğƒ`ƒFƒbƒN
 function check_array(target_array,obj){
     for (var i in target_array){
         if (target_array[i] == obj){
@@ -9,14 +9,14 @@ function check_array(target_array,obj){
     return false;
  }
 
-//åå‰ã®é‡è¤‡ã‚’èª¿ã¹ã¦å†å‰²å½“ã¦
+//–¼‘O‚Ìd•¡‚ğ’²‚×‚ÄÄŠ„“–‚Ä
 function chack_name(array1,name1){
     if (! check_array(array1,name1)){
         return name1;
      }else{
-         //åºæ•°
+         //˜”
          var tag = 1;
-         //åŒä¸€åãŒ100ä»¥ä¸Šã«ãªã‚‹ã“ã¨ã¯è€ƒãˆãªã„
+         //“¯ˆê–¼‚ª100ˆÈã‚É‚È‚é‚±‚Æ‚Íl‚¦‚È‚¢
          while (tag < 100){
             var name2 = name1 + "_" + tag;
             if (! check_array(array1,name2)){
@@ -27,7 +27,7 @@ function chack_name(array1,name1){
     }
 }
 
-//PNGã§ä¿å­˜
+//PNG‚Å•Û‘¶
 function savePng(doc, file_path){
     var pngFile = new File(file_path);
     var pngSaveOptions = new PNGSaveOptions();
@@ -37,7 +37,7 @@ function savePng(doc, file_path){
 }
 
 function convert(doc, path){
-	//ä½œæ¥­ã™ã‚‹ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆã‚’å–å¾—
+	//ì‹Æ‚·‚éƒhƒLƒ…ƒƒ“ƒg‚ğæ“¾
 	var i;
 	var docLayerSets= doc.layerSets;
 	var layers = doc.layers;
@@ -60,9 +60,9 @@ function convert(doc, path){
 		}
 	}
 	
-	//å…¨ã¦ã®ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®è¡¨ç¤ºçŠ¶æ…‹ã‚’ä¿å­˜
+	//‘S‚Ä‚ÌƒŒƒCƒ„[‚Ì•\¦ó‘Ô‚ğ•Û‘¶
 	var history = doc.activeHistoryState;
-	doc.suspendHistory('è‡ªå‹•ã‚¹ã‚¯ãƒªãƒ—ãƒˆ','');
+	doc.suspendHistory('©“®ƒXƒNƒŠƒvƒg','');
 
 	try {
 		//log( groups.keys );
@@ -80,7 +80,7 @@ function convert(doc, path){
 					}
 				}
 			});
-			//ãƒ•ã‚¡ã‚¤ãƒ«åã®é‡è¤‡ãƒã‚§ãƒƒã‚¯ã®ãŸã‚ã®é…åˆ—
+			//ƒtƒ@ƒCƒ‹–¼‚Ìd•¡ƒ`ƒFƒbƒN‚Ì‚½‚ß‚Ì”z—ñ
 			var filepath = path.replace(/\*/, groupName);
 			log('save to ' + filepath);
 			savePng(doc, filepath);
@@ -88,7 +88,7 @@ function convert(doc, path){
 	}catch(ex){
 		err = ex;
 	}
-	//ãƒ¬ã‚¤ãƒ¤ã®è¡¨ç¤ºã‚’å…ƒã®æ§˜æ…‹ã«æˆ»ã™
+	//ƒŒƒCƒ„‚Ì•\¦‚ğŒ³‚Ì—l‘Ô‚É–ß‚·
 	doc.activeHistoryState = history;
 	if( err ){
 		throw err;
@@ -97,6 +97,7 @@ function convert(doc, path){
 
 function withOpen(path, func){
 	var err;
+	log(path);
 	var oldLen = app.documents.length;
 	var doc = app.open(new File(path));
 	var needClose = (oldLen != documents.length);
@@ -114,8 +115,8 @@ function withOpen(path, func){
 }
 
 function hoge(){
-	withOpen('/Users/makoto/psgen/hoge.psd', function(doc){
-		convert(doc, '/Users/makoto/tt/fuga_*.png' );
+	withOpen("C:\\Work\\photoshop_conv\\thb.psd", function(doc){
+		convert(doc, "C:\\Work\\photoshop_conv\\thb_*.png" );
 	});
 	return true;
 }

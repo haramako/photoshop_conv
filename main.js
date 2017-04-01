@@ -42,8 +42,8 @@ var fs = require('fs');
 		});
     }
 
-	var rootPath = '/Users/makoto/psgen/test/plugins/polychrome';
-	var jsxPath = rootPath + '/jsx';
+	var rootPath = path.dirname(__filename);
+	var jsxPath = path.join(rootPath, 'jsx');
 	
 	function execFile(path, param){
 		var code = fs.readFileSync(path);
@@ -52,8 +52,10 @@ var fs = require('fs');
 	function exec(file, code, param){
 		param = param || {};
 		var env = {
+			sep: path.sep,
 			rootPath: rootPath,
-			jsxPath: jsxPath
+			jsxPath: jsxPath,
+			include: path.join(jsxPath, file)
 		};
 
 		var origCode = code;
@@ -62,10 +64,10 @@ var fs = require('fs');
 		}
 
 		if( file ){
-			code = '$.evalFile("'+jsxPath+'/'+file+'");' + code;
+			code = '$.evalFile(env.include);' + code;
 		}
 
-		var jsxCode = fs.readFileSync(jsxPath + '/base.js')
+		var jsxCode = fs.readFileSync(path.join(jsxPath, "base.js"))
 				.toString()
 				.replace('$ENV', JSON.stringify(env))
 				.replace('$PARAM', JSON.stringify(param))
@@ -90,9 +92,6 @@ var fs = require('fs');
 
 	function conv(){
 		return exec('to_png.js', function (){
-			//var file = new File("/Users/makoto/psgen/hoge.psd");
-			//var doc = open(file);
-			//return doc;
 			return hoge();
 		}).then( function(res){
 			log(res);
