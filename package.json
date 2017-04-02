@@ -5,11 +5,17 @@
   "description": "photoshop converter for toydea",
   "main": "main.js",
   "scripts": {
+    "test": "node node_modules/generator-core/app.js -f . -v || exit 1",
     "start": "node node_modules/generator-core/app.js -f . -v || exit 1",
-    "test": "node node_modules/generator-core/app.js -f . -v || exit 1"
+    "start-dev": "node-dev node_modules/generator-core/app.js -f . -v || exit 1"
   },
   "dependencies": {
-      "generator-core": "3.8.3"
+    "archiver": "^1.3.0",
+    "express": "^4.15.2",
+    "fs-extra": "^2.1.2",
+    "generator-core": "3.8.3",
+    "morgan": "^1.8.1",
+    "multer": "^1.3.0"
   },
   "author": "",
   "license": "MIT"

@@ -1,7 +1,8 @@
 "use strict";
 var fs = require('fs');
-
 var path = require("path");
+let server = require('./server');
+
 var _generator;
 var pluginName = path.dirname(__filename).split(path.sep).pop();
 var rootPath = path.dirname(__filename);
@@ -17,6 +18,8 @@ function handleGeneratorMenuClicked(e) {
 }
 
 function init(generator) {
+	server.start();
+	
     _generator = generator;
 
     log("plugin started");
@@ -28,9 +31,11 @@ function init(generator) {
 
     _generator.onPhotoshopEvent("generatorMenuChanged", handleGeneratorMenuClicked);
 
-	conv().then(function(res){
-		process.exit(0);
-	});
+	if(false){
+		conv().then(function(res){
+			process.exit(0);
+		});
+	}
 }
 
 function exec(file, code, param){
@@ -86,3 +91,4 @@ function conv(){
 }
 
 exports.init = init;
+exports.exec = exec;
