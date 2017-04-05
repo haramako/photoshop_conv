@@ -6,7 +6,7 @@
   "main": "main.js",
   "scripts": {
     "test": "node node_modules/generator-core/app.js -f . -v || exit 1",
-    "start": "node node_modules/generator-core/app.js -f . -v || exit 1",
+    "start": "node node_modules/generator-core/app.js -f .",
     "start-dev": "node-dev node_modules/generator-core/app.js -f . -v || exit 1"
   },
   "dependencies": {

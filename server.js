@@ -19,35 +19,60 @@ app.get('/', (req, res)=>{
 	res.send('Photoshop Converter Server');
 });
 
-app.post('/split', upload.single('file'), (req,res)=>{
-	console.log(`originalname: ${req.file.originalname}`);
-	console.log(`path: ${req.file.path}`);
-
+app.post('/split_by_group', upload.single('file'), (req,res)=>{
 	let outDir = path.join(workDir, path.basename(req.file.path));
 	let tmpFile = path.join(workDir, req.file.originalname);
 	let outFile = path.join(outDir, req.file.originalname.replace('.psd', '_*.psd'));
 	fs.mkdirsSync(outDir);
 	fs.copySync(req.file.path, tmpFile);
 
-	main.exec('to_png.js', 'hoge()', {
+	main.exec('to_png.js', 'split()', {
 		file: path.resolve(tmpFile),
 		out: path.resolve(outFile)
 	}).then( function(result){
 		// zip にする
 		var zipFile = outDir + '.zip';
-		var archive = archiver.create('zip', {});
-		var output = fs.createWriteStream(zipFile);
-		archive.pipe(output);
-		archive.directory(outDir, '.');
-		output.on('close', function(){
+		zip(zipFile, outDir, ()=>{
 			var buf = fs.readFileSync(zipFile);
 			res.send(buf, {'Content-Type': 'application/zip'}, 200);
 		});
-		archive.finalize();
 	}, function(err){
 		res.send(JSON.stringify({ok: false, err: err.toString()}));
 	});
 });
+
+app.post('/split_by_layer', upload.single('file'), (req,res)=>{
+	let outDir = path.join(workDir, path.basename(req.file.path));
+	let tmpFile = path.join(workDir, req.file.originalname);
+	let outFile = path.join(outDir, req.file.originalname.replace('.psd', '_*.psd'));
+	fs.mkdirsSync(outDir);
+	fs.copySync(req.file.path, tmpFile);
+
+	main.exec('to_png.js', 'splitByLayer()', {
+		file: path.resolve(tmpFile),
+		out: path.resolve(outFile)
+	}).then( function(result){
+		// zip にする
+		var zipFile = outDir + '.zip';
+		zip(zipFile, outDir, ()=>{
+			var buf = fs.readFileSync(zipFile);
+			res.send(buf, {'Content-Type': 'application/zip'}, 200);
+		});
+	}, function(err){
+		res.send(JSON.stringify({ok: false, err: err.toString()}));
+	});
+});
+
+function zip(zipfile, dir, callback){
+	var archive = archiver.create('zip', {});
+	var output = fs.createWriteStream(zipfile);
+	archive.pipe(output);
+	archive.directory(dir, '.');
+	output.on('close', function(){
+		callback();
+	});
+	archive.finalize();
+}
 
 function start(){
 	server = app.listen(3000);
