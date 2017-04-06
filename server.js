@@ -26,11 +26,10 @@ app.post('/split_by_group', upload.single('file'), (req,res)=>{
 	fs.mkdirsSync(outDir);
 	fs.copySync(req.file.path, tmpFile);
 
-	main.exec('to_png.js', 'split()', {
+	main.exec('to_png.js', 'splitByLayerNamePattern()', {
 		file: path.resolve(tmpFile),
 		out: path.resolve(outFile)
 	}).then( function(result){
-		// zip にする
 		var zipFile = outDir + '.zip';
 		zip(zipFile, outDir, ()=>{
 			var buf = fs.readFileSync(zipFile);
@@ -52,7 +51,6 @@ app.post('/split_by_layer', upload.single('file'), (req,res)=>{
 		file: path.resolve(tmpFile),
 		out: path.resolve(outFile)
 	}).then( function(result){
-		// zip にする
 		var zipFile = outDir + '.zip';
 		zip(zipFile, outDir, ()=>{
 			var buf = fs.readFileSync(zipFile);
@@ -67,7 +65,7 @@ function zip(zipfile, dir, callback){
 	var archive = archiver.create('zip', {});
 	var output = fs.createWriteStream(zipfile);
 	archive.pipe(output);
-	archive.directory(dir, '.');
+	archive.directory(dir, '');
 	output.on('close', function(){
 		callback();
 	});
