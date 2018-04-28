@@ -1,4 +1,4 @@
-//PNG‚Å•Û‘¶
+//PNGã§ä¿å­˜
 function savePng(doc, path){
     var file = new File(path);
     var opt = new PNGSaveOptions();
@@ -14,7 +14,7 @@ function _splitByLayerNamePattern(doc, path){
 	var groups = {ALL:[], DEFAULT:[]};
 	var group;
 
-	// ƒŒƒCƒ„[‚ğƒOƒ‹[ƒv‚²‚Æ‚É•ª‚¯‚é
+	// ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’ã‚°ãƒ«ãƒ¼ãƒ—ã”ã¨ã«åˆ†ã‘ã‚‹
 	for( i=0; i<layers.length; i++){
 		var layer = layers[i];
 		var mo = layer.name.match(/\[(.*)\]/);
@@ -30,7 +30,7 @@ function _splitByLayerNamePattern(doc, path){
 		}
 	}
 	
-	// ƒOƒ‹[ƒv‚²‚Æ‚ÉƒŒƒCƒ„[‚Ì•\¦ó‘Ô‚ğ•Ï‚¦‚Â‚Â•Û‘¶‚·‚é
+	// ã‚°ãƒ«ãƒ¼ãƒ—ã”ã¨ã«ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®è¡¨ç¤ºçŠ¶æ…‹ã‚’å¤‰ãˆã¤ã¤ä¿å­˜ã™ã‚‹
 	for( var groupName in groups ){
 		if( _.contains(['ALL','DEFAULT','HIDDEN'], groupName) ) continue;
 		if( !groups.hasOwnProperty(groupName) ) continue;
@@ -58,7 +58,7 @@ function _splitByLayer(doc, path){
 	var layers = doc.layers;
 	var groups = _.map(layers, function(layer){ return layer.name; });
 
-	// ƒOƒ‹[ƒv‚²‚Æ‚ÉƒŒƒCƒ„[‚Ì•\¦ó‘Ô‚ğ•Ï‚¦‚Â‚Â•Û‘¶‚·‚é
+	// ã‚°ãƒ«ãƒ¼ãƒ—ã”ã¨ã«ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®è¡¨ç¤ºçŠ¶æ…‹ã‚’å¤‰ãˆã¤ã¤ä¿å­˜ã™ã‚‹
 	_.each(groups, function(groupName){
 		if( groupName == 'bg' ) return;
 		
@@ -79,7 +79,7 @@ function withOpen(path, func){
 	var needClose = (oldLen != documents.length);
 	try {
 		var history = doc.activeHistoryState;
-		doc.suspendHistory('©“®ƒXƒNƒŠƒvƒg','');
+		doc.suspendHistory('è‡ªå‹•ã‚¹ã‚¯ãƒªãƒ—ãƒˆ','');
 		func(doc);
 		doc.activeHistoryState = history;
 	}catch(ex){
